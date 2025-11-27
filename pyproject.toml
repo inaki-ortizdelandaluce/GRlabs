@@ -5,6 +5,7 @@ description = "General Relativity Labs"
 authors = ["Inaki Ortiz de Landaluce <inaki.ortizdelandaluce@gmail.com>"]
 license = "MIT"
 readme = "README.md"
+package-mode = false
 
 [tool.poetry.dependencies]
 python = "^3.11"
@@ -17,4 +18,3 @@ streamlit = "^1.51.0"
 [build-system]
 requires = ["poetry-core"]
 build-backend = "poetry.core.masonry.api"
-package-mode = false
