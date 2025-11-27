@@ -1,0 +1,19 @@
+[tool.poetry]
+name = "grlabs"
+version = "0.1.0"
+description = "General Relativity Labs"
+authors = ["Inaki Ortiz de Landaluce <inaki.ortizdelandaluce@gmail.com>"]
+license = "MIT"
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.11"
+jupyter = "^1.1.1"
+numpy = "^2.1.0"
+matplotlib = "^3.9.2"
+streamlit = "^1.51.0"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
