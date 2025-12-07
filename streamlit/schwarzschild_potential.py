@@ -22,23 +22,21 @@ st.latex(
     r"V_{\text{eff, Newton}}(r) = -\frac{GM}{r} + \frac{\ell^2}{2 r^2}" 
 )
 
-# --- Sidebar controls ---
 st.sidebar.header("Parámetros")
 
-# GM value
+# GM
 GM = 1.0
 
-# l values
+# l
 lambda_str = st.sidebar.text_input(
     "$\ell$/GM",
     value="4",
     help="Ejemplo: 3.464 (ISCO - inflexión), 4, 5, 7 (órbitas estables con mín/máx)"
 )
 
-# Show Newtonian comparison
 show_newtonian = st.sidebar.checkbox("Potencial Newtoniano", value=False)
 
-# X-axis limits
+# X-axis
 st.sidebar.subheader("Límites del eje X")
 
 r_min = st.sidebar.slider(
@@ -69,7 +67,7 @@ num_points = 3000
 #    step=100,
 #)
 
-# Y-axis limits
+# Y-axis
 st.sidebar.subheader("Límites del eje Y")
 auto_ylim = st.sidebar.checkbox("Escala automática eje Y", value=False)
 
@@ -90,7 +88,7 @@ if not auto_ylim:
     )
 
 
-# Parse l values
+# l
 l_list = []
 for part in lambda_str.split(","):
     part = part.strip()
@@ -102,10 +100,9 @@ for part in lambda_str.split(","):
         st.sidebar.warning(f"No se pudo interpretar '{part}' como un número; se ignora.")
 
 if not l_list:
-    st.error("Por favor ingresa al menos un valor válido para $\ell$.")
+    st.error("Por favor introduce al menos un valor válido para $\ell$.")
     st.stop()
 
-# --- Physics: define grid and potential ---
 r_over_GM = np.linspace(r_min, r_max, num_points)
 r = r_over_GM * GM
 
@@ -117,29 +114,25 @@ def V_eff(r, GM, l):
     )
 
 def V_eff_newton(r, GM, l):
-    """Newtonian effective potential (without 1/r^3 term)"""
     return (
         -GM / r
         + 0.5 * (l**2) / (r**2)
     )
 
-# --- Plot ---
 fig, ax = plt.subplots(figsize=(12, 7))
 
-# Store info about extrema
+# puntos críticos
 extrema_info = []
 
 for l in l_list:
     V = V_eff(r, GM, l)
     ax.plot(r_over_GM, V, label=rf"$\ell = {l:.3g}$ (Schwarzschild)", linewidth=2)
     
-    # Plot Newtonian comparison if requested
     if show_newtonian:
         V_newton = V_eff_newton(r, GM, l)
         ax.plot(r_over_GM, V_newton, linewidth=2, 
                 label=rf"$\ell = {l:.3g}$ (Newton)")
     
-    # Calculate and mark extrema if l > 2*sqrt(3)*GM
     l_critical = 2 * np.sqrt(3) * GM
     if l > l_critical:
         discriminant = 1 - 12 * (GM / l)**2
@@ -158,7 +151,7 @@ for l in l_list:
                 ax.plot(r_min_loc / GM, V_min, 'go', markersize=6)
                 extrema_info.append(f"$\ell/GM={l:.3g}$: min en $r/GM={r_min_loc / GM:.3f}$")
 
-# Mark the horizon at r = 2GM (r/GM = 2)
+# horizonte de sucesos
 r_s = 2 * GM
 if r_min <= r_s <= r_max:
     ax.axvline(2, linestyle="--", linewidth=1.0, color='black', alpha=0.5)
@@ -175,13 +168,12 @@ ax.set_title("Potencial Efectivo de Schwarzschild", fontsize=14)
 ax.grid(True, alpha=0.3)
 ax.legend(fontsize=10)
 
-# Set y-axis limits if not auto scale
+# set y-axis limits if not auto scale
 if not auto_ylim:
     ax.set_ylim(y_min, y_max)
 
 st.pyplot(fig)
 
-# Display extrema info
 if extrema_info:
     st.subheader("Puntos Críticos")
     st.markdown("**Puntos rojos:** Máximos locales (órbitas inestables)")
