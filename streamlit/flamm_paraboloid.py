@@ -121,7 +121,8 @@ la forma $z(r)=\pm2\sqrt{r_s(r-r_s)}$. Por eso los círculos codificados con
 el mismo color tienen la misma circunferencia en ambos paneles, pero los
 rayos se separan mucho más al aproximarse al cuello $r=r_s$. La divergencia
 de la distancia radial propia en el cuello es una característica de estas
-coordenadas espaciales; el paraboloide no es una imagen literal de un agujero
+coordenadas espaciales.
+Es importante aclarar que el paraboloide no es una imagen literal de un agujero
 negro ni de la curvatura del espacio-tiempo en cuatro dimensiones.
 """
     )
