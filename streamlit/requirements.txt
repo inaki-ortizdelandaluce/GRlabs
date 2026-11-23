@@ -1,0 +1,6 @@
+# Dependencias de las aplicaciones de Streamlit de este directorio.
+# Community Cloud prioriza este fichero frente al pyproject.toml de la raíz,
+# evitando instalar Jupyter y sus extensiones cuando no son necesarias.
+streamlit>=1.51
+numpy>=2.1
+matplotlib>=3.9
