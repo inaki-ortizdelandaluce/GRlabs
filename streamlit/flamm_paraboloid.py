@@ -14,13 +14,24 @@ import streamlit as st
 
 
 st.set_page_config(page_title="Paraboloide de Flamm", layout="wide")
-st.title("Plano ecuatorial: espacio plano frente a Schwarzschild")
+st.title("Plano ecuatorial: espacio plano frente a paraboloide de Flamm")
 st.markdown(
     r"""
+En un espacio euclídeo tridimensional podemos visualizar directamente un sistema de coordenadas esféricas como una familia de esferas concéntricas.
+En el espacio curvo de Schwarzschild, las superficies de simetría siguen siendo esferas, pero las relaciones entre sus distancias no son euclídeas.
+Para visualizar esa diferencia geométrica seleccionamos la sección ecuatorial bidimensional, donde las esferas quedan representadas por circunferencias,
+y la embebemos en un espacio euclídeo tridimensional mediante el paraboloide de Flamm. Es importante aclarar que el paraboloide no es una imagen literal de un agujero
+negro ni de la curvatura del espacio-tiempo en cuatro dimensiones.
+
 En ambos dibujos, $r$ es el **radio circumferencial**: un círculo de radio $r$ tiene
 siempre circunferencia $C=2\pi r$.  El panel derecho no representa el
 espacio-tiempo completo, sino la geometría espacial de $t=\mathrm{cte}$ y
 $\theta=\pi/2$, embebida en un espacio euclídeo auxiliar.
+
+Los círculos con el mismo color tienen la misma circunferencia en ambos paneles.
+Para un mismo incremento de radio circumferencial $dr$, la separación radial propia
+entre dos círculos aumenta al aproximarse al cuello $r=r_s$:
+$d\ell/dr=1/\sqrt{1-r_s/r}$ diverge allí.
 """
 )
 
@@ -110,19 +121,4 @@ flat_radius = r_max - RS
 col1, col2, col3 = st.columns(3)
 col1.metric(r"circunferencia exterior", f"{2 * np.pi * r_max:.2f} $r_s$")
 col2.metric(r"distancia radial plana desde $r_s$", f"{flat_radius:.2f} $r_s$")
-col3.metric(r"distancia radial propia Schwarzschild", f"{proper_radius:.2f} $r_s$")
-
-with st.expander("Geometría que muestra la figura", expanded=True):
-    st.latex(r"dl^2=\frac{dr^2}{1-r_s/r}+r^2d\phi^2,\qquad r_s=\frac{2GM}{c^2}")
-    st.markdown(
-        r"""
-El embebido de esta sección en un espacio euclídeo de tres dimensiones tiene
-la forma $z(r)=\pm2\sqrt{r_s(r-r_s)}$. Por eso los círculos codificados con
-el mismo color tienen la misma circunferencia en ambos paneles, pero los
-rayos se separan mucho más al aproximarse al cuello $r=r_s$. La divergencia
-de la distancia radial propia en el cuello es una característica de estas
-coordenadas espaciales.
-Es importante aclarar que el paraboloide no es una imagen literal de un agujero
-negro ni de la curvatura del espacio-tiempo en cuatro dimensiones.
-"""
-    )
+col3.metric(r"distancia radial propia de Schwarzschild", f"{proper_radius:.2f} $r_s$")
